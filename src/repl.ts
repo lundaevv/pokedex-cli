@@ -8,7 +8,7 @@ export function startREPL(state: State): void {
   const { readline, commands } = state;
 
   readline.prompt();
-  readline.on("line", (input) => {
+  readline.on("line", async (input) => {
     const inputArr = cleanInput(input);
     const commandName = inputArr[0];
 
@@ -25,7 +25,7 @@ export function startREPL(state: State): void {
     }
 
     try {
-      cmd.callback(state);
+      await cmd.callback(state);
     } catch (err) {
       console.log(err);
     }
